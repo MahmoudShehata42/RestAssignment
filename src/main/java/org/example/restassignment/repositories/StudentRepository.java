@@ -1,5 +1,6 @@
 package org.example.restassignment.repositories;
 
+import org.example.restassignment.errors.StudentNotFound;
 import org.example.restassignment.models.Entities.Student;
 
 import java.util.Comparator;
@@ -14,7 +15,14 @@ public class StudentRepository implements IStudent{
 
     @Override
     public void update(Student entity) {
-        students.set(students.indexOf(entity), entity);
+Student student=getByID(entity.getId());
+if(student==null){
+    throw new StudentNotFound("Student not found");
+}
+student.setName(entity.getName());
+student.setAge(entity.getAge());
+student.setPassword(entity.getPassword());
+student.setScore(entity.getScore());
 
 
     }
